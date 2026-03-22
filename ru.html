@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YAGRY — Банковский и Комплаенс Консалтинг</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --beige: #F5F0E8;
+      --beige-dark: #EDE6D8;
+      --pine: #2C5E4A;
+      --pine-light: #3A7A60;
+      --pine-dark: #1E3F32;
+      --text: #2A2A2A;
+      --text-light: #6B6B6B;
+      --white: #FFFFFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--beige);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(245, 240, 232, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(44, 94, 74, 0.08);
+      transition: padding 0.3s ease;
+    }
+
+    nav.scrolled {
+      padding: 0.75rem 2rem;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--pine-dark);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--pine);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--pine);
+      transition: all 0.3s;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .lang-selector {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-light);
+      letter-spacing: 0.03em;
+    }
+
+    .lang-selector select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-light);
+      cursor: pointer;
+      padding: 0.2rem 1.2rem 0.2rem 0.3rem;
+      outline: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0 center;
+    }
+
+    .lang-selector select:hover {
+      color: var(--pine);
+    }
+
+    .lang-icon {
+      width: 14px;
+      height: 14px;
+      stroke: var(--text-light);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    /* ── Hero (Block 1) ── */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-line {
+      width: 1px;
+      height: 30px;
+      background: var(--pine);
+      opacity: 0.3;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--pine-dark);
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+      font-weight: 300;
+      color: var(--text-light);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .hero-tagline {
+      max-width: 520px;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.6;
+      flex-shrink: 0;
+    }
+
+    .hero-heritage {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: left;
+      padding: 1.5rem 0 0;
+    }
+
+    /* ── Section commons ── */
+    section {
+      padding: 4rem 2rem;
+    }
+
+    .section-inner {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pine);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 400;
+      color: var(--pine-dark);
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    .section-text {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.6;
+      max-width: 680px;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--pine);
+      opacity: 0.3;
+      margin: 0.75rem 0;
+    }
+
+    /* ── Heritage ── */
+    .heritage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+      align-items: start;
+    }
+
+    .heritage-year {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--pine);
+      opacity: 0.2;
+      margin-bottom: 0.25rem;
+    }
+
+    .heritage-card {
+      padding: 0;
+    }
+
+    .heritage-card h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--pine-dark);
+      margin-bottom: 0.35rem;
+    }
+
+    .heritage-card p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.55;
+    }
+
+    /* ── Block 2: Services & Fees (pine background) ── */
+    .services-fees {
+      display: flex;
+      align-items: center;
+      background: var(--pine-dark);
+      color: var(--beige);
+      padding: 4rem 2rem;
+    }
+
+    .services-fees .section-label {
+      color: rgba(245, 240, 232, 0.5);
+    }
+
+    .services-fees .section-heading {
+      color: var(--beige);
+    }
+
+    .services-fees .section-text {
+      color: rgba(245, 240, 232, 0.7);
+    }
+
+    .services-fees .divider {
+      background: var(--beige);
+      opacity: 0.15;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .service-card {
+      padding: 1.25rem;
+      border: 1px solid rgba(245, 240, 232, 0.12);
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: rgba(245, 240, 232, 0.25);
+      background: rgba(245, 240, 232, 0.05);
+    }
+
+    .service-card h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--beige);
+      margin-bottom: 0.35rem;
+    }
+
+    .service-card p {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.7);
+      line-height: 1.5;
+    }
+
+    .fee-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .fee-card {
+      padding: 1.25rem;
+      border: 1px solid rgba(245, 240, 232, 0.12);
+    }
+
+    .fee-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.5);
+      margin-bottom: 0.75rem;
+    }
+
+    .fee-amount {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--beige);
+      margin-bottom: 0.25rem;
+    }
+
+    .fee-amount span {
+      font-size: 0.9rem;
+      color: rgba(245, 240, 232, 0.5);
+    }
+
+    .fee-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.6);
+      line-height: 1.5;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Block 3: Contact (beige background) ── */
+    .contact {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--beige);
+      padding: 3rem 2rem;
+      overflow: hidden;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 0.75rem;
+      align-items: start;
+    }
+
+    .contact-info p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-detail a {
+      font-size: 0.9rem;
+      color: var(--pine);
+      text-decoration: none;
+      font-weight: 400;
+      transition: opacity 0.2s;
+    }
+
+    .contact-detail a:hover {
+      opacity: 0.7;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(44, 94, 74, 0.15);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(42, 42, 42, 0.35);
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--pine);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%232C5E4A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2.5rem;
+      background: var(--pine);
+      color: var(--beige);
+      border: none;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-transform: uppercase;
+    }
+
+    .btn:hover {
+      background: var(--pine-dark);
+    }
+
+    /* ── Experts ── */
+    .experts {
+      margin-top: 0.75rem;
+    }
+
+    .expert-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1.2rem;
+      border: 1px solid rgba(44, 94, 74, 0.15);
+      text-decoration: none;
+      color: var(--pine-dark);
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .expert-card:hover {
+      border-color: var(--pine);
+      background: rgba(44, 94, 74, 0.04);
+    }
+
+    .linkedin-icon {
+      width: 18px;
+      height: 18px;
+      color: #0A66C2;
+      flex-shrink: 0;
+    }
+
+    .expert-card span {
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 2rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(44, 94, 74, 0.08);
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--pine-dark);
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* ── Animations ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(245, 240, 232, 0.97);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        border-bottom: 1px solid rgba(44, 94, 74, 0.08);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .heritage-grid,
+      .services-grid,
+      .fee-cards,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      section,
+      .services-fees {
+        padding: 3rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">YAGRY</a>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#heritage">Наследие</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#fees">Тарифы</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+      <div class="lang-selector">
+        <svg class="lang-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/>
+        </svg>
+        <select id="langSelect" aria-label="Выбрать язык">
+          <option value="en">EN</option>
+          <option value="ru" selected>RU</option>
+        </select>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Меню навигации">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-line"></div>
+    <h1>YAGRY</h1>
+    <p class="hero-subtitle">Банковский и Комплаенс Консалтинг</p>
+
+    <div class="hero-heritage fade-in" id="heritage">
+      <div class="divider" style="margin: 0 0 0.5rem;"></div>
+      <p class="section-label">Наше Наследие</p>
+      <h2 class="section-heading">Названы в честь места, где<br>началась международная торговля</h2>
+      <div class="heritage-grid">
+        <div class="heritage-card">
+          <div class="heritage-year">1553</div>
+          <h3>История Первопроходцев</h3>
+          <p>
+            В 1553 году корабль Ричарда Ченслера достиг берегов близ острова Ягры в Белом море,
+            установив первый морской торговый путь между Англией и Россией. Эта встреча привела
+            к основанию Московской компании в 1555 году, одного из первых в мире международных
+            торговых предприятий, и превратила Беломорский регион в ворота России
+            в мировую торговлю.
+          </p>
+        </div>
+        <div class="heritage-card">
+          <div class="heritage-year">Сегодня</div>
+          <h3>Современный Подход</h3>
+          <p>
+            Мы продолжаем этот первопроходческий дух. Подобно тому как остров
+            соединял разные миры через торговлю, мы связываем наших клиентов
+            с мировыми банковскими экосистемами. Навигируем капиталы с учетом
+            регуляций, открываем счета в различных юрисдикциях и обеспечиваем
+            полное комплаенс соответствие на каждом этапе.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 2: Services & Fees -->
+  <section class="services-fees" id="services">
+    <div class="section-inner fade-in">
+      <p class="section-label">Что Мы Делаем</p>
+      <h2 class="section-heading">Наши Услуги</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Открытие Счетов</h3>
+          <p>
+            Полное сопровождение открытия личных банковских счетов
+            в различных юрисдикциях, включая подготовку документации,
+            соответствие требованиям KYC и взаимодействие с банками.
+          </p>
+        </div>
+        <div class="service-card">
+          <h3>Комплаенс Поддержка</h3>
+          <p>
+            Постоянное консультирование по вопросам регуляторного соответствия,
+            обеспечивающее соответствие ваших банковских отношений и финансовых
+            структур всем применимым правовым требованиям.
+          </p>
+        </div>
+        <div class="service-card">
+          <h3>Управление Активами</h3>
+          <p>
+            Стратегическое руководство по структурированию ваших активов
+            в банковских учреждениях и юрисдикциях, оптимизация безопасности,
+            доступа и регуляторного соответствия.
+          </p>
+        </div>
+        <div class="service-card">
+          <h3>Трансграничный Консалтинг</h3>
+          <p>
+            Экспертный консалтинг по международному банкингу, помогающий
+            вам ориентироваться на пересечении различных регуляторных систем
+            для бесперебойных трансграничных операций.
+          </p>
+        </div>
+      </div>
+
+      <div class="divider" style="margin: 1.5rem 0 0.75rem;"></div>
+
+      <p class="section-label" id="fees">Прозрачные Тарифы</p>
+      <h2 class="section-heading">Простое и понятное ценообразование</h2>
+      <div class="fee-cards">
+        <div class="fee-card">
+          <p class="fee-label">Открытие</p>
+          <p class="fee-amount">3,000 <span>USD</span></p>
+          <p class="fee-desc">
+            Единоразовый фиксированный платёж, покрывающий полное сопровождение
+            открытия счёта, подготовку документов, выбор банка и взаимодействие
+            до успешной активации.
+          </p>
+        </div>
+        <div class="fee-card">
+          <p class="fee-label">Комиссия за Успех</p>
+          <p class="fee-amount">1% <span>+ НДС</span></p>
+          <p class="fee-desc">
+            Текущая комиссия за комплаенс поддержку и управление активами.
+            Взимается только при успешном результате, обеспечивая полное
+            совпадение наших интересов с вашими.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="section-inner fade-in">
+      <p class="section-label">Свяжитесь с Нами</p>
+      <h2 class="section-heading">Начните диалог</h2>
+      <form id="contactForm" action="https://formsubmit.co/maxim@yagry.com" method="POST" style="max-width: 450px;">
+        <input type="hidden" name="_subject" value="Новый запрос YAGRY">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="">
+        <input type="text" name="name" placeholder="Имя" required>
+        <input type="text" name="contact-link" placeholder="Телефон или Email" required>
+        <textarea name="request" placeholder="Обращение (опционально)" style="min-height: 80px;"></textarea>
+        <button type="submit" class="btn" id="submitBtn">Отправить Запрос</button>
+      </form>
+
+      <div class="divider" style="margin: 2rem 0 1rem;"></div>
+
+      <p class="section-label">Наши Эксперты</p>
+      <div class="experts">
+        <a href="https://www.linkedin.com/in/maxlubinsky" target="_blank" rel="noopener noreferrer" class="expert-card">
+          <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          <span>Maxim Lubinsky</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p class="footer-logo">YAGRY</p>
+    <p>Банковский и Комплаенс Консалтинг</p>
+    <p style="margin-top:1rem;opacity:0.6;">
+      &copy; 2026 YAGRY. Все права защищены.
+    </p>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Set form redirect back to this page after submission
+    const nextInput = document.querySelector('input[name="_next"]');
+    if (nextInput) nextInput.value = window.location.href;
+
+    // Language switcher
+    document.getElementById('langSelect').addEventListener('change', function() {
+      const lang = this.value;
+      if (lang === 'en') window.location.href = 'index.html';
+      if (lang === 'ru') window.location.href = 'ru.html';
+    });
+  </script>
+
+</body>
+</html>
